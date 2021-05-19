@@ -80,6 +80,13 @@ public class Demo : MonoBehaviour
         CreateRosConnection();
         CreateTrajectoryPlannerPublisher();
     }
+    
+    #if INTEGRATION_TEST
+    int ReturnFive()
+    {
+       return 5;
+    }
+    #endif
 
     void Update()
     {

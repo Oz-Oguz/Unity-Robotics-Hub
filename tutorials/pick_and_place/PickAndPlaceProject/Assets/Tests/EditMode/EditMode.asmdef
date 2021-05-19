@@ -5,7 +5,11 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Unity.Robotics.ROSTCPConnector.Editor",
-        "Unity.Robotics.ROSTCPConnector"
+        "Unity.Robotics.ROSTCPConnector",
+        "Unity.Robotics.URDFImporter.Editor",
+        "Unity.Robotics.RosMessages",
+        "Unity.Robotics.URDFImporter",
+        "Unity.Robotics.PickAndPlace"
     ],
     "includePlatforms": [
         "Editor"
