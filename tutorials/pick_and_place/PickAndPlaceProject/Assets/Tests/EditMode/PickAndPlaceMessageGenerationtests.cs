@@ -5,10 +5,10 @@ using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 using Unity.Robotics.ROSTCPConnector.Editor.MessageGeneration;
 using UnityEditor;
 
-namespace Unity.Robotics.PickAndPlace.Tests
+namespace MessageGenerationTests
 {
-    [TestFixture]
-    [Category("MessageGeneration")]
+    // This gets a special category to enable running independently when needed to generate message definitions
+    [TestFixture, Category("MessageGeneration")]
     public class MessageGenerationTests
     {
         // Relative path to the directory containing the catkin packages

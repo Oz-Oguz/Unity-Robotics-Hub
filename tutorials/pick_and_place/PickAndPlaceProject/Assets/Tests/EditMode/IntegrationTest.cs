@@ -6,18 +6,18 @@ using NUnit.Framework;
 using RosSharp;
 using RosSharp.Control;
 using RosSharp.Urdf.Editor;
+using Unity.Robotics.PickAndPlace;
 using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.TestTools;
 
-namespace Unity.Robotics.PickAndPlace.Tests
+namespace IntegrationTests
 {
-    [TestFixture]
+    [TestFixture, Explicit, Category("IntegrationTests")]
     // IMPORTANT: In order for this category of tests to run correctly, MessageGeneration must be run first and the
     //            INTEGRATION_TEST script define must be set
-    [Category("Integration")]
     public class RosIntegrationTests
     {
         #region Parameters
@@ -77,10 +77,10 @@ namespace Unity.Robotics.PickAndPlace.Tests
         bool DidPlacementSucceed => m_TargetPlacement.CurrentState == TargetPlacement.PlacementState.InsidePlaced;
 
 
-#if INTEGRATION_TEST
         [UnityTest]
         public IEnumerator TrajectoryPublisher_PickAndPlaceDemo_CompletesTask()
         {
+#if INTEGRATION_TEST
             SetUpScene();
             // TODO: This test could be made a PlayMode test once ImportRobot can use the PlayMode URDF import
             ImportRobot();
@@ -102,7 +102,6 @@ namespace Unity.Robotics.PickAndPlace.Tests
             }
             
             Assert.IsTrue(DidPlacementSucceed, "Pick and Place did not complete before test timed out.");
-            // TODO: Wait a reasonable amount of time and check if the cube is in the expected location
             
             yield return new ExitPlayMode();
         }
@@ -166,7 +165,11 @@ namespace Unity.Robotics.PickAndPlace.Tests
             controller.speed = k_ControllerSpeed;
             controller.acceleration = k_ControllerAcceleration;
             GameObject.Find(k_NameBaseLink).GetComponent<ArticulationBody>().immovable = true;
-        }
+#else
+            throw new NotImplementedException(
+                "This integration test can only be executed with the INTEGRATION_TEST scripting define set. " +
+                "The dependencies of this test are not guaranteed to exist in the Project by default.");
 #endif
+        }
     }
 }

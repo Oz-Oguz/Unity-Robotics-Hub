@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 
+[TestFixture, Category("UnitTests")]
 public class TargetPlacementTests
 {
     const int k_NumAllowedFrames = 5;
