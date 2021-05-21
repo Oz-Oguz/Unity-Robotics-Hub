@@ -19,16 +19,16 @@ commands:
     - mkdir -p ./tutorials/pick_and_place/PickAndPlaceProject/Assets/Scripts && cp ./tutorials/pick_and_place/Scripts/*.cs ./tutorials/pick_and_place/PickAndPlaceProject/Assets
       # Run each category of tests in its own process, in order of increasing complexity
     - utr/utr --testproject=./tutorials/pick_and_place/PickAndPlaceProject --editor-location=.Editor --reruncount=0 --artifacts_path=test-results --suite=playmode --suite=editor --platform=Editor --editorTestCategories UnitTests
-
+    - python3 .yamato/set-up-integration-tests.py
+      #TODO: Determine how best to capture ROS logging as test artifacts
+    - /bin/bash .yamato/start-ros-picknplace.bash
     - utr/utr --testproject=./tutorials/pick_and_place/PickAndPlaceProject --editor-location=.Editor --reruncount=0 --artifacts_path=test-results --suite=playmode --suite=editor --platform=Editor --editorTestCategories IntegrationTests
       #TODO: Determine when it would be prudent to run BuildTests and add them here or in a new config
 triggers:
     cancel_old_ci: true
     expression: |
-        (pull_request.target eq "main"  AND
-        NOT pull_request.push.changes.all match ["**/*.md","**/*.jpg","**/*.jpeg","**/*.gif","**/*.pdf"]) OR
-        (push.branch eq "dev" AND
-        NOT push.changes.all match ["**/*.md","**/*.jpg","**/*.jpeg","**/*.gif","**/*.pdf"])
+        (pull_request.target in ["main", "dev"] AND
+        NOT pull_request.changes.all match ["**/*.md","**/*.jpg","**/*.jpeg","**/*.gif","**/*.pdf"])
 artifacts:
     logs:
         paths:
