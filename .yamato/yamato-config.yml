@@ -21,7 +21,6 @@ commands:
     - utr/utr --testproject=./tutorials/pick_and_place/PickAndPlaceProject --editor-location=.Editor --reruncount=0 --artifacts_path=test-results --suite=playmode --suite=editor --platform=Editor --editorTestCategories UnitTests
     - python3 .yamato/set-up-integration-tests.py
       # Inject the INTEGRATION_TEST define into the project settings
-      # TODO: This is fragile - would be better if we could figure out why unityparser doesn't work on bokken
     - "sed -i '/scriptingDefineSymbols/!b;n;c\ \ \ \ 1\: INTEGRATION_TEST' ./tutorials/pick_and_place/PickAndPlaceProject/ProjectSettings/ProjectSettings.asset"
       #TODO: Determine how best to capture ROS logging as test artifacts
     - /bin/bash .yamato/start-ros-picknplace.bash
