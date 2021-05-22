@@ -24,10 +24,13 @@ for external_script in scripts_to_move:
     script_name = os.path.basename(external_script)
     shutil.copyfile(external_script, os.path.join(project_scripts_dir, script_name))
 
-#project_settings_asset = UnityDocument.load_yaml(project_settings_file)
-#scripting_defines = project_settings_asset.entry.scriptingDefineSymbols  # type: OrderedDict
-#if scripting_defines[1]:
-#    scripting_defines[1] += f";{_INTEGRATION_TEST_DEFINE}"
-#else:
-#    scripting_defines[1] = _INTEGRATION_TEST_DEFINE
-#project_settings_asset.dump_yaml()
+# ☹️
+os.system("sed -i '/scriptingDefineSymbols/!b;n;c\ \ \ \ 1\: INTEGRATION_TEST' ./tutorials/pick_and_place/PickAndPlaceProject/ProjectSettings/ProjectSettings.asset")
+
+# project_settings_asset = UnityDocument.load_yaml(project_settings_file)
+# scripting_defines = project_settings_asset.entry.scriptingDefineSymbols  # type: OrderedDict
+# if scripting_defines[1]:
+#     scripting_defines[1] += f";{_INTEGRATION_TEST_DEFINE}"
+# else:
+#     scripting_defines[1] = _INTEGRATION_TEST_DEFINE
+# project_settings_asset.dump_yaml()
